@@ -16,14 +16,16 @@ final class ViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .black
         button.layer.cornerRadius = 25
-        
+        button.setTitle("0", for: .normal)
         return button
     }()
     
     private lazy var buttonsHV = UIStackView()
     
-    private lazy var nextButton = MoveButton(title: "▶︎", frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-    private lazy var previousButton = MoveButton(title: "◀︎", frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    private lazy var nextButton = MoveButton(title: .forward, frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    private lazy var previousButton = MoveButton(title: .backward, frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    
+    private var counter: Int = 0
     
     // MARK: - Lifecycle
     
@@ -87,7 +89,7 @@ extension ViewController {
         
         //for animation
         buttonsHV.alpha = 0.0
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) {
             self.buttonsHV.alpha = 1
         }
     }
@@ -96,7 +98,7 @@ extension ViewController {
         let hitTest = self.buttonsHV.hitTest(location, with: nil)
         self.unselectAllButtons()
         if let selectedButton = hitTest as? MoveButton  {
-            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {
                 selectedButton.setSelected()
             }
         }
@@ -110,7 +112,7 @@ extension ViewController {
     }
     
     private func unselectAllButtons(completion: ((Bool) -> Void)? = nil) {
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.buttonsHV.subviews.forEach({ (button) in
                 guard let joystickButton = button as? MoveButton else { return }
                 joystickButton.setUnselected()
@@ -121,8 +123,20 @@ extension ViewController {
     private func checkForSelectedButtons() {
         let buttons:[MoveButton] = [self.previousButton, self.nextButton]
         buttons.forEach { button in
-            if button.isSelected { print("\(button.titleLabel) was selected") }
+            if button.isSelected {
+                button.type == .forward ? self.moveToRight() : self.moveToLeft()
+            }
         }
+    }
+    
+    private func moveToLeft() {
+        self.counter = self.counter - 1
+        self.centerButton.setTitle("\(self.counter)", for: .normal)
+    }
+    
+    private func moveToRight() {
+        self.counter = self.counter + 1
+        self.centerButton.setTitle("\(self.counter)", for: .normal)
     }
 }
 
