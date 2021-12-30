@@ -7,8 +7,7 @@
 
 import UIKit
 
-
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     // MARK: - Components
     
@@ -23,29 +22,8 @@ class ViewController: UIViewController {
     
     private lazy var buttonsHV = UIStackView()
     
-    private lazy var nextButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        button.setTitle("▶︎", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 30)
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 25
-        button.layer.borderWidth = 0.5
-        button.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
-        
-        return button
-    }()
-    
-    private lazy var previousButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        button.setTitle("◀︎", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 30)
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 25
-        button.layer.borderWidth = 0.5
-        button.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
-        
-        return button
-    }()
+    private lazy var nextButton = MoveButton(title: "▶︎", frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    private lazy var previousButton = MoveButton(title: "◀︎", frame: CGRect(x: 0, y: 0, width: 50, height: 50))
     
     // MARK: - Lifecycle
     
@@ -95,6 +73,8 @@ extension ViewController {
             self.showMoveButtons()
         case .ended:
             self.hideMoveButtons()
+        case .changed:
+            self.userMovedFinger(to: gesture.location(in: self.buttonsHV))
         default:
             break
         }
@@ -112,8 +92,29 @@ extension ViewController {
         }
     }
     
+    private func userMovedFinger(to location: CGPoint) {
+        let hitTest = self.buttonsHV.hitTest(location, with: nil)
+        self.unselectAllButtons()
+        if let selectedButton = hitTest as? MoveButton  {
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {
+                selectedButton.setSelected()
+            }
+        }
+    }
+    
     private func hideMoveButtons() {
-        self.buttonsHV.removeFromSuperview()
+        self.unselectAllButtons { [unowned self] (_) in
+            self.buttonsHV.removeFromSuperview()
+        }
+    }
+    
+    private func unselectAllButtons(completion: ((Bool) -> Void)? = nil) {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.buttonsHV.subviews.forEach({ (button) in
+                guard let joystickButton = button as? MoveButton else { return }
+                joystickButton.setUnselected()
+            })
+        }, completion: completion)
     }
 }
 
