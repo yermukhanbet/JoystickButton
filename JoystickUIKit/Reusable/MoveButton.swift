@@ -15,6 +15,9 @@ public enum MoveButtonType: String {
 final class MoveButton: UIButton {
     
     public let type: MoveButtonType
+    
+    // MARK: - constructors
+    
     init(title: MoveButtonType, frame: CGRect) {
         self.type = title
         super.init(frame: frame)
@@ -25,11 +28,15 @@ final class MoveButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Setting the view
+    
     private func setViews(title: String) {
         self.setTitle(title, for: .normal)
         self.titleLabel?.font = .systemFont(ofSize: 30)
         self.setTitleColor(.black, for: .normal)
     }
+    
+    // MARK: - selection/unselection
     
     public func setSelected() {
         self.titleLabel?.font = .systemFont(ofSize: 40)
