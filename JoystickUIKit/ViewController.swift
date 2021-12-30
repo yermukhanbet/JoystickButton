@@ -2,13 +2,15 @@
 //  ViewController.swift
 //  JoystickUIKit
 //
-//  Created by Yessen (eazel5) on 2021/12/30.
+//  Created by Yessen on 2021/12/30.
 //
 
 import UIKit
 
 
 class ViewController: UIViewController {
+    
+    // MARK: - Components
     
     private lazy var centerButton: UIButton = {
         let button = UIButton()
@@ -29,6 +31,7 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 25
         button.layer.borderWidth = 0.5
         button.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+        
         return button
     }()
     
@@ -40,6 +43,7 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 25
         button.layer.borderWidth = 0.5
         button.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+        
         return button
     }()
     
@@ -106,8 +110,6 @@ extension ViewController {
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) {
             self.buttonsHV.alpha = 1
         }
-        print(self.nextButton.frame.height)
-        print(self.nextButton.frame.width)
     }
     
     private func hideMoveButtons() {
