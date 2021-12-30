@@ -7,11 +7,18 @@
 
 import UIKit
 
+public enum MoveButtonType: String {
+    case forward = "▶︎"
+    case backward = "◀︎"
+}
+
 final class MoveButton: UIButton {
     
-    init(title: String, frame: CGRect) {
+    public let type: MoveButtonType
+    init(title: MoveButtonType, frame: CGRect) {
+        self.type = title
         super.init(frame: frame)
-        self.setViews(title: title)
+        self.setViews(title: title.rawValue)
     }
     
     required init?(coder: NSCoder) {
