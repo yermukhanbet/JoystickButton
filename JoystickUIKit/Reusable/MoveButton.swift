@@ -26,9 +26,11 @@ final class MoveButton: UIButton {
     
     public func setSelected() {
         self.titleLabel?.font = .systemFont(ofSize: 40)
+        self.isSelected = true
     }
     
     public func setUnselected() {
         self.titleLabel?.font = .systemFont(ofSize: 30)
+        self.isSelected = false
     }
 }

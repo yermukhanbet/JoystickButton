@@ -101,14 +101,14 @@
 		E640BFF9277D5EFB000AB321 /* JoystickUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				E640C008277D5EFD000AB321 /* Info.plist */,
+				E640C02E277DA713000AB321 /* Assets */,
+				E640C02D277DA704000AB321 /* VC */,
+				E640C02C277DA6F7000AB321 /* Reusable */,
 				E640BFFA277D5EFB000AB321 /* AppDelegate.swift */,
 				E640BFFC277D5EFB000AB321 /* SceneDelegate.swift */,
-				E640BFFE277D5EFB000AB321 /* ViewController.swift */,
 				E640C000277D5EFB000AB321 /* Main.storyboard */,
-				E640C003277D5EFD000AB321 /* Assets.xcassets */,
 				E640C005277D5EFD000AB321 /* LaunchScreen.storyboard */,
-				E640C008277D5EFD000AB321 /* Info.plist */,
-				E640C02A277D9DC5000AB321 /* MoveButton.swift */,
 			);
 			path = JoystickUIKit;
 			sourceTree = "<group>";
@@ -128,6 +128,30 @@
 				E640C01D277D5EFD000AB321 /* JoystickUIKitUITestsLaunchTests.swift */,
 			);
 			path = JoystickUIKitUITests;
+			sourceTree = "<group>";
+		};
+		E640C02C277DA6F7000AB321 /* Reusable */ = {
+			isa = PBXGroup;
+			children = (
+				E640C02A277D9DC5000AB321 /* MoveButton.swift */,
+			);
+			path = Reusable;
+			sourceTree = "<group>";
+		};
+		E640C02D277DA704000AB321 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				E640BFFE277D5EFB000AB321 /* ViewController.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		E640C02E277DA713000AB321 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E640C003277D5EFD000AB321 /* Assets.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

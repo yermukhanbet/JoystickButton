@@ -103,6 +103,7 @@ extension ViewController {
     }
     
     private func hideMoveButtons() {
+        self.checkForSelectedButtons()
         self.unselectAllButtons { [unowned self] (_) in
             self.buttonsHV.removeFromSuperview()
         }
@@ -115,6 +116,13 @@ extension ViewController {
                 joystickButton.setUnselected()
             })
         }, completion: completion)
+    }
+    
+    private func checkForSelectedButtons() {
+        let buttons:[MoveButton] = [self.previousButton, self.nextButton]
+        buttons.forEach { button in
+            if button.isSelected { print("\(button.titleLabel) was selected") }
+        }
     }
 }
 
