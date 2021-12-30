@@ -43,6 +43,7 @@ final class ViewController: UIViewController {
     
     private func setViews() {
         self.view.backgroundColor = .white
+            
         self.view.addSubview(centerButton)
         centerButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         centerButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
@@ -91,6 +92,7 @@ extension ViewController {
         buttonsHV.alpha = 0.0
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) {
             self.buttonsHV.alpha = 1
+            self.centerButton.backgroundColor = .lightGray
         }
     }
     
@@ -108,6 +110,7 @@ extension ViewController {
         self.checkForSelectedButtons()
         self.unselectAllButtons { [unowned self] (_) in
             self.buttonsHV.removeFromSuperview()
+            self.centerButton.backgroundColor = .black
         }
     }
     
