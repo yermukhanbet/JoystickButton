@@ -16,6 +16,7 @@
 		E640C012277D5EFD000AB321 /* JoystickUIKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E640C011277D5EFD000AB321 /* JoystickUIKitTests.swift */; };
 		E640C01C277D5EFD000AB321 /* JoystickUIKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E640C01B277D5EFD000AB321 /* JoystickUIKitUITests.swift */; };
 		E640C01E277D5EFD000AB321 /* JoystickUIKitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E640C01D277D5EFD000AB321 /* JoystickUIKitUITestsLaunchTests.swift */; };
+		E640C02B277D9DC5000AB321 /* MoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E640C02A277D9DC5000AB321 /* MoveButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		E640C017277D5EFD000AB321 /* JoystickUIKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoystickUIKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E640C01B277D5EFD000AB321 /* JoystickUIKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickUIKitUITests.swift; sourceTree = "<group>"; };
 		E640C01D277D5EFD000AB321 /* JoystickUIKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickUIKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E640C02A277D9DC5000AB321 /* MoveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				E640C003277D5EFD000AB321 /* Assets.xcassets */,
 				E640C005277D5EFD000AB321 /* LaunchScreen.storyboard */,
 				E640C008277D5EFD000AB321 /* Info.plist */,
+				E640C02A277D9DC5000AB321 /* MoveButton.swift */,
 			);
 			path = JoystickUIKit;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			files = (
 				E640BFFF277D5EFB000AB321 /* ViewController.swift in Sources */,
 				E640BFFB277D5EFB000AB321 /* AppDelegate.swift in Sources */,
+				E640C02B277D9DC5000AB321 /* MoveButton.swift in Sources */,
 				E640BFFD277D5EFB000AB321 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
