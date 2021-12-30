@@ -103,7 +103,7 @@ extension ViewController {
         if let selectedButton = hitTest as? MoveButton  {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {
                 self.makeWeakVibration()
-                selectedButton.setSelected()
+                selectedButton.isSelected ? () : self.selectTheButton(button: selectedButton)
             }
         }
     }
@@ -123,6 +123,11 @@ extension ViewController {
                 joystickButton.setUnselected()
             })
         }, completion: completion)
+    }
+    
+    private func selectTheButton(button: MoveButton) {
+        self.makeWeakVibration()
+        button.setSelected()
     }
     
     private func checkForSelectedButtons() {
