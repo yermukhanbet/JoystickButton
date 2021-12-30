@@ -84,6 +84,7 @@ extension ViewController {
     }
     
     private func showMoveButtons() {
+        self.makeWeakVibration()
         self.view.addSubview(buttonsHV)
         let centerX = (self.view.frame.width - self.buttonsHV.frame.width) / 2
         buttonsHV.transform = CGAffineTransform(translationX: centerX, y: self.centerButton.frame.minY)
@@ -101,6 +102,7 @@ extension ViewController {
         self.unselectAllButtons()
         if let selectedButton = hitTest as? MoveButton  {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {
+                self.makeWeakVibration()
                 selectedButton.setSelected()
             }
         }
