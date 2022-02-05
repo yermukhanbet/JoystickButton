@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  JoystickUIKit
 //
-//  Created by Yessen (eazel5) on 2021/12/30.
+//  Created by Yessen on 2021/12/30.
 //
 
 import UIKit
