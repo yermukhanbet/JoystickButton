@@ -18,6 +18,7 @@
 		E640C01E277D5EFD000AB321 /* JoystickUIKitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E640C01D277D5EFD000AB321 /* JoystickUIKitUITestsLaunchTests.swift */; };
 		E640C02B277D9DC5000AB321 /* MoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E640C02A277D9DC5000AB321 /* MoveButton.swift */; };
 		E640C032277DB34C000AB321 /* VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E640C031277DB34C000AB321 /* VC.swift */; };
+		FA96CD7227AE89DC0022439F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FA96CD7127AE89DC0022439F /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA96CD7227AE89DC0022439F /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +175,9 @@
 			dependencies = (
 			);
 			name = JoystickUIKit;
+			packageProductDependencies = (
+				FA96CD7127AE89DC0022439F /* SnapKit */,
+			);
 			productName = JoystickUIKit;
 			productReference = E640BFF7277D5EFB000AB321 /* JoystickUIKit.app */;
 			productType = "com.apple.product-type.application";
@@ -245,6 +250,9 @@
 				Base,
 			);
 			mainGroup = E640BFEE277D5EFB000AB321;
+			packageReferences = (
+				FA96CD7027AE89DC0022439F /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = E640BFF8277D5EFB000AB321 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -471,7 +479,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 69B882R34D;
+				DEVELOPMENT_TEAM = XF4TTRXY2Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JoystickUIKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -499,7 +507,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 69B882R34D;
+				DEVELOPMENT_TEAM = XF4TTRXY2Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JoystickUIKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -656,6 +664,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA96CD7027AE89DC0022439F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA96CD7127AE89DC0022439F /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA96CD7027AE89DC0022439F /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E640BFEF277D5EFB000AB321 /* Project object */;
 }
