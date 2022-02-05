@@ -6,63 +6,79 @@
 //
 
 import UIKit
+import SnapKit
 
 final class ViewController: UIViewController {
     
     // MARK: - Components
     
-    private lazy var centerButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .black
-        button.layer.cornerRadius = 25
-        button.setTitle("0", for: .normal)
-        return button
-    }()
-    
-    private lazy var buttonsHV = UIStackView()
+    private let centerButton = JoystickCenterButton()
     
     private lazy var nextButton = MoveButton(title: .forward, frame: CGRect(x: 0, y: 0, width: 50, height: 50))
     private lazy var previousButton = MoveButton(title: .backward, frame: CGRect(x: 0, y: 0, width: 50, height: 50))
     
+    private lazy var buttonsHV = UIStackView()
+    
     private var counter: Int = 0
+    
     
     // MARK: - Lifecycle
     
-    override func loadView() {
-        super.loadView()
-        self.setViews()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setViews()
         self.createJoystick()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.animateMoveButtons()
+        self.hideAnimation()
     }
     
     // MARK: - UI Layout
     
     private func setViews() {
-        self.view.backgroundColor = .white
-            
-        self.view.addSubview(centerButton)
-        centerButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        centerButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        centerButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        centerButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        self.view.backgroundColor = #colorLiteral(red: 0.1333333333, green: 0.2039215686, blue: 0.2352941176, alpha: 1)
         
         self.createHVButtons()
+        
+        self.view.addSubview(self.buttonsHV)
+        buttonsHV.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        self.view.addSubview(centerButton)
+        centerButton.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.width.height.equalTo(160)
+        }
     }
     
     private func createHVButtons() {
         let views: [UIView] = [self.previousButton, self.nextButton]
+        views.forEach { button in
+            button.snp.makeConstraints { $0.width.height.equalTo(60) }
+        }
+        
         self.buttonsHV = UIStackView(arrangedSubviews: views)
-        self.buttonsHV.frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 40, height: 50)
         self.buttonsHV.axis = .horizontal
         self.buttonsHV.distribution = .equalSpacing
     }
     
     private func createJoystick() {
         self.centerButton.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(joystickHold)))
+    }
+    
+    private func animateMoveButtons() {
+        let buttons: [UIView] = [self.previousButton, self.nextButton]
+        
+        buttons.forEach { button in
+            button.layoutSubviews()
+        }
     }
 }
 
@@ -85,34 +101,37 @@ extension ViewController {
     
     private func showMoveButtons() {
         self.makeWeakVibration()
-        self.view.addSubview(buttonsHV)
-        let centerX = (self.view.frame.width - self.buttonsHV.frame.width) / 2
-        buttonsHV.transform = CGAffineTransform(translationX: centerX, y: self.centerButton.frame.minY)
-        
-        //for animation
-        buttonsHV.alpha = 0.0
+    
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) {
-            self.buttonsHV.alpha = 1
-            self.centerButton.backgroundColor = .lightGray
+            self.buttonsHV.transform = .identity
         }
     }
     
     private func userMovedFinger(to location: CGPoint) {
         let hitTest = self.buttonsHV.hitTest(location, with: nil)
-        self.unselectAllButtons()
         if let selectedButton = hitTest as? MoveButton  {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut) {
-                self.makeWeakVibration()
-                selectedButton.isSelected ? () : self.selectTheButton(button: selectedButton)
+            UIView.animate(withDuration: 0.5) {
+                selectedButton.isSelected
+                ? ()
+                : self.selectTheButton(button: selectedButton)
             }
+        } else {
+            self.unselectAllButtons()
         }
     }
     
     private func hideMoveButtons() {
         self.checkForSelectedButtons()
-        self.unselectAllButtons { [unowned self] (_) in
-            self.buttonsHV.removeFromSuperview()
-            self.centerButton.backgroundColor = .black
+        self.unselectAllButtons()
+        self.hideAnimation()
+    }
+    
+    private func checkForSelectedButtons() {
+        let buttons:[MoveButton] = [self.previousButton, self.nextButton]
+        buttons.forEach { button in
+            if button.isSelected {
+                button.type == .forward ? self.moveToRight() : self.moveToLeft()
+            }
         }
     }
     
@@ -125,18 +144,15 @@ extension ViewController {
         }, completion: completion)
     }
     
+    private func hideAnimation() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut) {
+            self.buttonsHV.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+        }
+    }
+    
     private func selectTheButton(button: MoveButton) {
         self.makeWeakVibration()
         button.setSelected()
-    }
-    
-    private func checkForSelectedButtons() {
-        let buttons:[MoveButton] = [self.previousButton, self.nextButton]
-        buttons.forEach { button in
-            if button.isSelected {
-                button.type == .forward ? self.moveToRight() : self.moveToLeft()
-            }
-        }
     }
     
     private func moveToLeft() {
@@ -149,4 +165,3 @@ extension ViewController {
         self.centerButton.setTitle("\(self.counter)", for: .normal)
     }
 }
-
